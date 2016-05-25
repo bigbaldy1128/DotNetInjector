@@ -19,4 +19,7 @@ public class CustomMonitor : IMethodMonitor //自定义一个类并继承IMethod
     }
 }
 ```
-2.注入目标进程并安装监视器。调用Inject.dll中的Inject方法`Inject(target_process_id)`
+2.安装监视器
+`Monitor.Install("monitors")` //这里指定默认目录为monitors
+##Dll注入
+例如目标进程为target.exe,我的程序为MainHook.exe，MainHook中引用Inject.dll并调用Inject方法`Inject(target_process_id)`.具体示例程序在BinTest_x64目录下，启动target.exe,点击【Call】按钮，弹出"A"，启动MainHook点击【Hook】按钮后再点击【Call】按钮，弹出"BA"
