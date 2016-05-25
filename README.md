@@ -1,5 +1,10 @@
 ## DotNetInject
-DotNetInject是一个用于.net程序dll注入和hook的类库，支持x86和x64以及.net framework 1.1以上的所有版本
+DotNetInject是一个用于.net程序dll注入和hook的类库
+##特点
+* 支持32bit和64bit的.net程序
+* 支持.net framework 2.0以上的所有版本
+* 支持静态方法，实例方法和属性的hook
+* 支持.net基础类库方法的hook
 ##快速示例
 1.定义一个监视器，编译成dll，放入目标程序所在目录下的monitors目录
 ```
@@ -21,5 +26,5 @@ public class CustomMonitor : IMethodMonitor //自定义一个类并继承IMethod
 ```
 2.安装监视器
 `Monitor.Install("monitors")` //这里指定默认目录为monitors
-##Dll注入
-例如目标进程为target.exe,我的程序为MainHook.exe，MainHook中引用Inject.dll并调用Inject方法`Inject(target_process_id)`.具体示例程序在BinTest_x64目录下，启动target.exe,点击【Call】按钮，弹出"A"，启动MainHook点击【Hook】按钮后再点击【Call】按钮，弹出"BA"
+##Dll注入示例
+示例程序在BinTest_x64目录下，启动target.exe,点击【Call】按钮，弹出"A"，启动MainHook点击【注入】按钮后再点击【Call】按钮，弹出"BA"
