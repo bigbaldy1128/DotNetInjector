@@ -1,5 +1,5 @@
-## DotNetInject
-DotNetInject是一个用于.net程序dll注入和hook的类库
+## DotNetInjector
+DotNetInjector是一个用于.net程序dll注入和方法hook的类库
 ##特点
 * 支持32bit和64bit的.net程序
 * 支持.net framework 2.0以上的所有版本
