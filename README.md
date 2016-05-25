@@ -13,14 +13,14 @@ DotNetInjector是一个用于.net程序dll注入和方法hook的类库
 public class CustomMonitor : IMethodMonitor //自定义一个类并继承IMethodMonitor接口
 {
     [Monitor("Target","TargetClass","Target.exe")] //目标方法的名称空间，类名，程序集（如果是mscorlib中的可以省略）
-    public string Get() //方法的签名要与目标函数一致
+    public string Get() //方法签名要与目标方法一致
     {
         return "B" + Ori();
     }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     [Original] //原函数标记
-    public string Ori() //方法的签名要与目标函数一致
+    public string Ori() //方法签名要与目标方法一致
     {
         return null; //这里写什么无所谓，能编译过即可
     }
