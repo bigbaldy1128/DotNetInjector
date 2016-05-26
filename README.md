@@ -9,6 +9,7 @@ DotNetInjector是一个用于.net程序dll注入和方法hook的类库
 
 ##Hook方法示例
 1.安装：Install-Package DotNetDetour
+
 2.定义一个监视器，编译成dll，放入程序所在目录下的monitors目录
 ```
 public class CustomMonitor : IMethodMonitor //自定义一个类并继承IMethodMonitor接口
