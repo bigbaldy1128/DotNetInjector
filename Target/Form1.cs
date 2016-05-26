@@ -6,6 +6,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,6 +23,9 @@ namespace Target
 
         private void button1_Click(object sender, EventArgs e)
         {
+            //Monitor.Install();
+            //MyClass<string> my = new MyClass<string>();
+            //MessageBox.Show(my.Get("1"));
             MessageBox.Show(new TargetClass().Get());
         }
     }

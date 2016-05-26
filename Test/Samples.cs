@@ -30,4 +30,13 @@ namespace Test
             }
         }
     }
+
+    public class A1<T>
+    {
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        public T GenericMethod(T t)
+        {
+            return t;
+        }
+    }
 }

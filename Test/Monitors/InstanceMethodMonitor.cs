@@ -6,19 +6,19 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CustomMonitor
+namespace Test
 {
     public class InstanceMethodMonitor : IMethodMonitor
     {
         [Monitor("Test", "A", "Test.dll")]
         public string InstanceMethod()
         {
-            return "B" + OriginalMethod();
+            return "B" + Ori();
         }
 
         [MethodImpl(MethodImplOptions.NoInlining)]
         [Original]
-        public string OriginalMethod()
+        public string Ori()
         {
             return null;
         }

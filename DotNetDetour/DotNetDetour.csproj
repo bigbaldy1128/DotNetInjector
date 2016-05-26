@@ -50,6 +50,7 @@
     <Compile Include="DetourWays\NativeDetourFor64Bit.cs" />
     <Compile Include="IDetour.cs" />
     <Compile Include="IMethodMonitor.cs" />
+    <Compile Include="LDasm.cs" />
     <Compile Include="Monitor.cs" />
     <Compile Include="MonitorAttribute.cs" />
     <Compile Include="NativeAPI.cs" />

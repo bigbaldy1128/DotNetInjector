@@ -28,7 +28,10 @@ namespace DotNetDetour.DetourWays
 
         public virtual void Patch(MethodInfo src, MethodInfo dest,MethodInfo ori)
         {
-            RuntimeHelpers.PrepareMethod(src.MethodHandle); //确保jit过了
+            //确保jit过了
+            var typeHandles = src.DeclaringType.GetGenericArguments().Select(t => t.TypeHandle).ToArray();
+            RuntimeHelpers.PrepareMethod(src.MethodHandle, typeHandles);
+            
             srcPtr = (byte*)src.MethodHandle.GetFunctionPointer().ToPointer();
             var destPtr = (byte*)dest.MethodHandle.GetFunctionPointer().ToPointer();
             if (ori != null)
@@ -37,7 +40,7 @@ namespace DotNetDetour.DetourWays
             }
             fixed (byte* newInstrPtr=newInstrs)
             {
-                *(uint*)(newInstrPtr+1)= (uint)destPtr - (uint)srcPtr - 5;
+                *(uint*)(newInstrPtr + 1) = (uint)destPtr - (uint)srcPtr - 5;
             }
             Patch();
         }
@@ -56,8 +59,8 @@ namespace DotNetDetour.DetourWays
         protected virtual void CreateOriginalMethod(MethodInfo method)
         {
             uint oldProtect;
-            var needSize = NativeAPI.SizeofMin5Byte(srcPtr);
-            var total_length = needSize + 5;
+            var needSize = LDasm.SizeofMin5Byte(srcPtr);
+            var total_length = (int)needSize + 5;
             byte[] code = new byte[total_length];
             IntPtr ptr = Marshal.AllocHGlobal(total_length);
             //code[0] = 0xcc;//调试用

@@ -35,5 +35,12 @@ namespace Test
             Monitor.Install();
             Assert.AreEqual("BA", File.ReadAllText("test"));
         }
+
+        [TestMethod]
+        public void GenericMethod()
+        {
+            Monitor.Install();
+            Assert.AreEqual("BA", new A1<string>().GenericMethod("A"));
+        }
     }
 }

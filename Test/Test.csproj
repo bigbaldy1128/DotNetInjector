@@ -51,6 +51,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Monitors\GenericMethodMonitor.cs" />
     <Compile Include="Monitors\SystemMethodMonitor.cs" />
     <Compile Include="Monitors\InstanceMethodMonitor.cs" />
     <Compile Include="Monitors\PropertyMonitor.cs" />

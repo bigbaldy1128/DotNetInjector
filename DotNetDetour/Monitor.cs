@@ -43,17 +43,25 @@ namespace DotNetDetour
                 if (dest == null)
                     continue;
                 var monitorAttribute=dest.GetCustomAttribute(typeof(MonitorAttribute)) as MonitorAttribute;
-                var srcNamespaceAndClass = monitorAttribute.NamespaceName + "." + monitorAttribute.ClassName;
                 var methodName = dest.Name;
                 var paramTypes = dest.GetParameters().Select(t => t.ParameterType).ToArray();
-                if (string.IsNullOrEmpty(monitorAttribute.AssemblyName))
+                if (monitorAttribute.Type != null)
                 {
-                    src = Type.GetType(srcNamespaceAndClass).GetMethod(methodName, paramTypes);
+                    src = monitorAttribute.Type.GetMethod(methodName, paramTypes);
                 }
                 else
                 {
-                    Assembly asm = Assembly.LoadFrom(monitorAttribute.AssemblyName);
-                    src = asm.GetType(srcNamespaceAndClass).GetMethod(methodName, paramTypes);
+                    var srcNamespaceAndClass = monitorAttribute.NamespaceName + "." + monitorAttribute.ClassName;
+
+                    if (string.IsNullOrEmpty(monitorAttribute.AssemblyName))
+                    {
+                        src = Type.GetType(srcNamespaceAndClass).GetMethod(methodName, paramTypes);
+                    }
+                    else
+                    {
+                        Assembly asm = Assembly.LoadFrom(monitorAttribute.AssemblyName);
+                        src = asm.GetType(srcNamespaceAndClass).GetMethod(methodName, paramTypes);
+                    }
                 }
                 if (src == null)
                     continue;
