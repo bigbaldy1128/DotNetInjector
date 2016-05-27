@@ -1,5 +1,4 @@
-﻿using DotNetDetour;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -14,6 +13,15 @@ using System.Windows.Forms;
 
 namespace Target
 {
+    public class TargetClass
+    {
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        public string Get()
+        {
+            return "想hook我没戏！";
+        }
+    }
+
     public partial class Form1 : Form
     {
         public Form1()
@@ -23,9 +31,6 @@ namespace Target
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //Monitor.Install();
-            //MyClass<string> my = new MyClass<string>();
-            //MessageBox.Show(my.Get("1"));
             MessageBox.Show(new TargetClass().Get());
         }
     }

@@ -10,17 +10,10 @@ namespace CustomMonitor
 {
     public class CustomMonitor:IMethodMonitor
     {
-        [Monitor("Target","TargetClass","Target.exe")]
+        [Monitor("Target","TargetClass")]
         public string Get()
         {
-            return "B" + Ori();
-        }
-
-        [MethodImpl(MethodImplOptions.NoInlining)]
-        [Original]
-        public string Ori()
-        {
-            return null;
+            return "竟然被hook了";
         }
     }
 }
