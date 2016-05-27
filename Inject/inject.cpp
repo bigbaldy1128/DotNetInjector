@@ -2,24 +2,21 @@
 #include <stdio.h>
 #include "inject.h"
 
-void EnableDebugPrivilege(BOOL bEnable)
+BOOL EnableDebugPrivilege(BOOL bEnable)
 {
+	BOOL fOK = FALSE;
 	HANDLE hToken;
-	BOOL fOk = FALSE;
 	if (OpenProcessToken(GetCurrentProcess(), TOKEN_ADJUST_PRIVILEGES, &hToken))
-	{
+	{ 
 		TOKEN_PRIVILEGES tp;
 		tp.PrivilegeCount = 1;
-		if (!LookupPrivilegeValue(NULL, SE_DEBUG_NAME, &tp.Privileges[0].Luid))
-		{
-		}
-		tp.Privileges[0].Attributes = SE_PRIVILEGE_ENABLED;
-		if (!AdjustTokenPrivileges(hToken, FALSE, &tp, sizeof(tp), NULL, NULL))
-		{
-		}
-		fOk = (GetLastError() == ERROR_SUCCESS);
+		LookupPrivilegeValue(NULL, SE_DEBUG_NAME, &tp.Privileges[0].Luid);
+		tp.Privileges[0].Attributes = bEnable ? SE_PRIVILEGE_ENABLED : 0;
+		AdjustTokenPrivileges(hToken, FALSE, &tp, sizeof(tp), NULL, NULL);
+		fOK = (GetLastError() == ERROR_SUCCESS);
 		CloseHandle(hToken);
 	}
+	return fOK;
 }
 
 bool Inject(DWORD pid)
